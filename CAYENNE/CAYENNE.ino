@@ -1,14 +1,3 @@
-/*
-This example shows how to connect to Cayenne using an Ethernet W5100 shield and send/receive sample data.
-
-The CayenneMQTT Library is required to run this sketch. If you have not already done so you can install it from the Arduino IDE Library Manager.
-
-Steps:
-1. Set the Cayenne authentication info to match the authentication info from the Dashboard.
-2. Compile and upload the sketch.
-3. A temporary widget will be automatically generated in the Cayenne Dashboard. To make the widget permanent click the plus sign on the widget.
-*/
-
 //#define CAYENNE_DEBUG       // Uncomment to show debug messages
 //#define CAYENNE_PRINT Serial  // Comment this out to disable prints and save space
 #include <CayenneMQTTEthernet.h>
