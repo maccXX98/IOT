@@ -11,6 +11,10 @@ const int HX711_sck = 8; //mcu > HX711 sck pin
 HX711_ADC LoadCell(HX711_dout, HX711_sck);
 unsigned long t = 0;
 
+//sensor de presencia
+int PirPin = 3;
+int ledRedPin = 2;
+
 //Sensor de luz
 int ledPin = 5; // Piezo on Pin 5
 int ldrPin = 0; // LDR en el pin analogico 0
@@ -31,7 +35,13 @@ char clientID[] = "31f6a130-bad1-11eb-8779-7d56e82df461";
 const int ventilador = 7;
  
 void setup() {
-	Serial.begin(57600);
+	
+  Serial.begin(57600);
+	
+  //sensor de presencia
+  pinMode(PirPin, INPUT);
+  pinMode(ledRedPin, OUTPUT);
+	
   //Balanza
   Serial.println();
   Serial.println("Starting...");
@@ -60,6 +70,17 @@ void setup() {
 }
 
 void loop() {
+	
+  //sensor de presencia
+  int presencia;
+  if(digitalRead(PirPin) == HIGH){
+    digitalWrite(ledRedPin, HIGH);
+    presencia = 1;
+    }else{
+    digitalWrite(ledRedPin, LOW);
+    presencia = 0;
+      }
+	
   //Sensor de luz
   ldrValue = analogRead(ldrPin); 
   //Serial.println(ldrValue);
@@ -114,11 +135,13 @@ float peso;
   Cayenne.virtualWrite(2, indicecalor);
   Cayenne.virtualWrite(3, peso);
   Cayenne.virtualWrite(4, ldrValue);
+  Cayenne.virtualWrite(5, presencia);
+	
 // Esperamos 5 segundos entre medidas
   delay(5000);
 }
-CAYENNE_IN(5)
+CAYENNE_IN(6)
 {
-  int Valor_Canal_05 = getValue.asInt();
-  digitalWrite(ventilador, Valor_Canal_05);
+  int Valor_Canal_06 = getValue.asInt();
+  digitalWrite(ventilador, Valor_Canal_06);
 }
