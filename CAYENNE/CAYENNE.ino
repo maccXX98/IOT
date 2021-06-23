@@ -72,13 +72,13 @@ void setup() {
 void loop() {
 	
   //sensor de presencia
-  int presencia;
+  boolean presencia;
   if(digitalRead(PirPin) == HIGH){
     digitalWrite(ledRedPin, HIGH);
-    presencia = 1;
+    presencia = true;
     }else{
     digitalWrite(ledRedPin, LOW);
-    presencia = 0;
+    presencia = false;
       }
 	
   //Sensor de luz
